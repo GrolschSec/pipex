@@ -6,8 +6,16 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:47:24 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/02/27 14:48:00 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/02/27 15:06:51 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
+
+int	main(int argc, char **argv)
+{
+	if (argc != 5)
+		return (1);
+	ft_putstr_fd(argv[1], 0);
+	return (0);
+}

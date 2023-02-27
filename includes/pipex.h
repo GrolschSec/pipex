@@ -6,7 +6,12 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:47:44 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/02/27 14:47:45 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/02/27 15:40:59 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef PIPEX_H
+# define PIPEX_H
+# include "../ft/libft.h"
+
+#endif

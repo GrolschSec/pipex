@@ -1,0 +1,4 @@
+[submodule "ft"]
+	path = ft
+	url = git@github.com:GrolschSec/Libft.git
+	branch = master
