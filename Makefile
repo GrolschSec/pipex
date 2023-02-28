@@ -4,7 +4,7 @@ SRC = main.c \
 
 DIR 		= ${addprefix srcs/,${SRC}}
 
-HEAD		= -I ft
+INCLUDE_DIR	= -I ft
 
 CC			= gcc
 
@@ -12,16 +12,16 @@ CFLAGS		= -Wall -Werror -Wextra -g
 
 OBJS		= ${DIR:.c=.o}
 
-FT_FLAG		= -L ft -lft
+FT_LIB	= -L ft -lft
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	make -C ft
-	$(CC) $(CFLAGS) $(FT_FLAG) $(OBJS) -o $(NAME) 
+	$(CC) $(CFLAGS) $(OBJS) $(FT_LIB) -o $(NAME) 
 
 .c.o:
-	${CC} ${CFLAGS} ${HEAD} -c $< -o ${<:.c=.o}
+	${CC} ${CFLAGS} ${INCLUDE_DIR} -c $< -o ${<:.c=.o}
 
 clean:
 	make clean -C ft
