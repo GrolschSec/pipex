@@ -1,6 +1,7 @@
 NAME = pipex
 
 SRC = main.c \
+	utils.c \
 
 DIR 		= ${addprefix srcs/,${SRC}}
 
