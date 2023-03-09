@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 23:13:42 by romain            #+#    #+#             */
-/*   Updated: 2023/03/08 23:16:11 by romain           ###   ########.fr       */
+/*   Updated: 2023/03/09 16:11:27 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,30 @@ void	free_tab(char **tab)
 	free(tab);
 }
 
-char *find_path(char **envp)
+char	**find_path(char **envp)
 {
-    char	*path;
+	char	*path;
+	char	**path_splitted;
 	int		i;
 
 	i = 0;
 	path = NULL;
-    while (envp[i] != NULL)
+	while (envp[i] != NULL)
 	{
-        if (ft_strncmp(envp[i], "PATH=", 5) == 0)
+		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
 		{
-            path = envp[i] + 5;
-            break;
-        }
+			path = envp[i] + 5;
+			break ;
+		}
 		i++;
-    }
-    return path;
+	}
+	if (path)
+	{
+		path_splitted = ft_split(path, ':');
+		if (!path_splitted)
+			return (NULL);
+	}	
+	return (path_splitted);
 }
 
 char	*set_app_path(char *dir, char *name)
@@ -57,31 +64,23 @@ char	*set_app_path(char *dir, char *name)
 	return (free(str1), str2);
 }
 
-char	*find_app(char **envp, char *app_name)
+char	*find_app(t_pipex pipex, char *app_name)
 {
-    char	*path;
 	char	*app_path;
-	char	**dirs;
 	int		i;
-	
-	path = find_path(envp);
-    if (path == NULL)
-        return NULL;
-    dirs = ft_split(path, ':');
-    if (!dirs)
-		return (NULL);
+
 	i = 0;
 	app_path = NULL;
-    while (dirs[i])
+	while (pipex.path[i])
 	{
-		app_path = set_app_path(dirs[i++], app_name);
-        if (access(app_path, X_OK) == 0)
-			break;
+		app_path = set_app_path(pipex.path[i++], app_name);
+		if (access(app_path, X_OK) == 0)
+			break ;
 		else
 		{
 			free(app_path);
 			app_path = NULL;
 		}
 	}
-	return (free_tab(dirs), app_path);
+	return (app_path);
 }
