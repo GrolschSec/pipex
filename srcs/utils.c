@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 23:13:42 by romain            #+#    #+#             */
-/*   Updated: 2023/03/09 16:11:27 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/03/10 15:51:22 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,14 @@ char	*find_app(t_pipex pipex, char *app_name)
 
 	i = 0;
 	app_path = NULL;
+	if (access(app_name, X_OK) == 0)
+	{
+		app_path = malloc(sizeof(char) * ft_strlen(app_name));
+		if (!app_path)
+			return (NULL);
+		ft_strlcpy(app_path, app_name, ft_strlen(app_name));
+		return (app_path);
+	}
 	while (pipex.path[i])
 	{
 		app_path = set_app_path(pipex.path[i++], app_name);

@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:47:44 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/03/09 16:18:59 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/03/10 14:36:21 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <sys/wait.h>
+# include <errno.h>
+# include <stdio.h>
 
 typedef struct s_pipex
 {
@@ -28,6 +30,7 @@ typedef struct s_pipex
 	char	**path;
 	char	**args;
 	char	*app;
+	int		status;
 }				t_pipex;
 /*utils.c*/
 void	free_tab(char **tab);
@@ -40,4 +43,7 @@ void	close_pipes(t_pipex pipex);
 void	parent_process(t_pipex pipex);
 void	child_two_process(t_pipex pipex, char **argv, char **envp);
 void	child_one_process(t_pipex pipex, char **argv, char **envp);
+/*error.c*/
+void	error_msg(char *name, char *message, int status);
+int		set_return_value(int status);
 #endif

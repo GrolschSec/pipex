@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 16:12:25 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/03/09 16:29:55 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:13:05 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,15 @@ void	child_one_process(t_pipex pipex, char **argv, char **envp)
 	pipex.app = find_app(pipex, pipex.args[0]);
 	if (!pipex.app)
 	{
+		error_msg(pipex.args[0], "command not found: ", 0);
 		free_child(pipex);
-		exit(1);
+		exit(0);
 	}
-	execve(pipex.app, pipex.args, envp);
+	if (execve(pipex.app, pipex.args, envp) == -1)
+	{
+		free_child(pipex);
+		exit(0);
+	}
 }
 
 void	child_two_process(t_pipex pipex, char **argv, char **envp)
@@ -33,15 +38,19 @@ void	child_two_process(t_pipex pipex, char **argv, char **envp)
 	dup2(pipex.fd[0], STDIN_FILENO);
 	close(pipex.fd[1]);
 	dup2(pipex.outfile, STDOUT_FILENO);
-	close_pipes(pipex);
 	pipex.args = ft_split(argv[3], ' ');
 	pipex.app = find_app(pipex, pipex.args[0]);
 	if (!pipex.app)
 	{
+		error_msg(pipex.args[0], "command not found: ", 0);
 		free_child(pipex);
-		exit(1);
+		exit(127);
 	}
-	execve(pipex.app, pipex.args, envp);
+	if (execve(pipex.app, pipex.args, envp) == -1)
+	{
+		free_child(pipex);
+		exit(0);
+	}
 }
 
 void	parent_process(t_pipex pipex)
@@ -59,6 +68,7 @@ void	close_pipes(t_pipex pipex)
 
 void	free_child(t_pipex pipex)
 {
-	free_tab(pipex.args);
 	free(pipex.app);
+	free_tab(pipex.args);
+	free_tab(pipex.path);
 }

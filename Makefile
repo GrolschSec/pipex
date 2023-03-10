@@ -3,6 +3,7 @@ NAME = pipex
 SRC = main.c \
 	utils.c \
 	process.c \
+	error.c \
 
 DIR 		= ${addprefix srcs/,${SRC}}
 
