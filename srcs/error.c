@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 17:17:12 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/03/10 15:54:58 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/03/10 17:45:47 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	error_msg(char *name, char *message, int status)
 	}
 	else
 		perror(message);
-	if (status != 0)
+	if (status != -1)
 		exit(status);
 }
 

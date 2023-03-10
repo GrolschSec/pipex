@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 16:12:25 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/03/10 16:13:05 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/03/10 17:46:12 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	child_one_process(t_pipex pipex, char **argv, char **envp)
 	pipex.app = find_app(pipex, pipex.args[0]);
 	if (!pipex.app)
 	{
-		error_msg(pipex.args[0], "command not found: ", 0);
+		error_msg(pipex.args[0], "command not found: ", -1);
 		free_child(pipex);
 		exit(0);
 	}
@@ -42,7 +42,7 @@ void	child_two_process(t_pipex pipex, char **argv, char **envp)
 	pipex.app = find_app(pipex, pipex.args[0]);
 	if (!pipex.app)
 	{
-		error_msg(pipex.args[0], "command not found: ", 0);
+		error_msg(pipex.args[0], "command not found: ", -1);
 		free_child(pipex);
 		exit(127);
 	}

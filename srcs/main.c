@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:47:24 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/03/10 17:40:53 by romain           ###   ########.fr       */
+/*   Updated: 2023/03/10 17:45:54 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	pipex.infile = open(argv[1], O_RDONLY, 0777);
 	if (pipex.infile == -1)
-		error_msg(argv[1], "no such file or directory: ", 2);
+		error_msg(argv[1], "no such file or directory: ", 0);
 	pipex.outfile = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (pipex.outfile < 0)
 		return (1);
