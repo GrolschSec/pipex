@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 17:17:12 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/03/10 17:45:47 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/03/13 14:02:35 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,13 @@
 
 void	error_msg(char *name, char *message, int status)
 {
-	char	*str;
-
 	if (name)
 	{
-		str = ft_strjoin(message, name);
-		if (!str)
-			return ;
-		ft_putstr_fd(str, 2);
-		free(str);
+		ft_putstr_fd("pipex: ", 2);
+		ft_putstr_fd(name, 2);
+		ft_putstr_fd(": ", 2);
+		ft_putstr_fd(message, 2);
+		ft_putchar_fd('\n', 2);
 	}
 	else
 		perror(message);
