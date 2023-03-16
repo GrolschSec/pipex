@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:47:24 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/03/13 14:07:04 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/03/16 11:13:15 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,7 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc != 5)
 		return (1);
-	if (pipe(pipex.fd) == -1)
-		return (1);
-	pipex.outfile = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0664);
-	if (pipex.outfile < 0)
-		return (1);
-	pipex.infile = open(argv[1], O_RDONLY, 0777);
-	if (pipex.infile == -1)
-		error_msg(argv[1], strerror(errno), 0);
-	pipex.path = find_path(envp);
+	pipex = init(argv, envp);
 	pipex.pid1 = fork();
 	if (pipex.pid1 == 0)
 		child_one_process(pipex, argv, envp);
@@ -38,4 +30,22 @@ int	main(int argc, char **argv, char **envp)
 	waitpid(pipex.pid2, &pipex.status, 0);
 	parent_process(pipex);
 	return (set_return_value(pipex.status));
+}
+
+t_pipex	init(char **argv, char **envp)
+{
+	t_pipex	pipex;
+
+	pipex.outfile = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0664);
+	if (pipex.outfile < 0)
+		exit (1);
+	pipex.infile = open(argv[1], O_RDONLY, 0777);
+	if (pipex.infile == -1)
+		init_error(argv[1], strerror(errno), pipex, 1);
+	if (pipe(pipex.fd) == -1)
+		init_error(NULL, strerror(errno), pipex, 2);
+	pipex.path = find_path(envp);
+	if (!pipex.path)
+		init_error(NULL, strerror(errno), pipex, 3);
+	return (pipex);
 }

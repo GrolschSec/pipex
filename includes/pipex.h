@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:47:44 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/03/13 14:03:49 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/03/16 11:11:19 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,8 @@ void	child_two_process(t_pipex pipex, char **argv, char **envp);
 void	child_one_process(t_pipex pipex, char **argv, char **envp);
 /*error.c*/
 void	error_msg(char *name, char *message, int status);
+void	init_error(char *name, char *message, t_pipex pipex, int err);
 int		set_return_value(int status);
+/*main.c*/
+t_pipex	init(char **argv, char **envp);
 #endif
