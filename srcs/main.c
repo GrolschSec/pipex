@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:47:24 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/03/16 11:13:15 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/03/16 15:32:03 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int argc, char **argv, char **envp)
 	t_pipex	pipex;
 
 	if (argc != 5)
-		return (1);
+		error_msg(NULL, "Not enough arguments", 1);
 	pipex = init(argv, envp);
 	pipex.pid1 = fork();
 	if (pipex.pid1 == 0)
