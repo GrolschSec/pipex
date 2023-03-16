@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:47:44 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/03/16 11:11:19 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/03/16 11:16:59 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,9 @@ void	free_tab(char **tab);
 char	**find_path(char **envp);
 char	*set_app_path(char *dir, char *name);
 char	*find_app(t_pipex pipex, char *app_name);
-char	*name_is_path(t_pipex pipex, char *name);
 int		get_tab_size(char **tab);
+/*utils_2.c*/
+char	*name_is_path(t_pipex pipex, char *name);
 /*process.c*/
 void	free_child(t_pipex pipex);
 void	close_pipes(t_pipex pipex);
