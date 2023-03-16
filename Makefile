@@ -2,6 +2,7 @@ NAME = pipex
 
 SRC = main.c \
 	utils.c \
+	utils_2.c \
 	process.c \
 	error.c \
 
