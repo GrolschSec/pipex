@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:47:24 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/03/16 15:32:03 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/03/22 21:15:08 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_pipex	init(char **argv, char **envp)
 	t_pipex	pipex;
 
 	pipex.outfile = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0664);
-	if (pipex.outfile < 0)
+	if (pipex.outfile == -1)
 		exit (1);
 	pipex.infile = open(argv[1], O_RDONLY, 0777);
 	if (pipex.infile == -1)
