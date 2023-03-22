@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 16:12:25 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/03/16 15:25:31 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/03/22 23:42:27 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,19 @@ void	child_one_process(t_pipex pipex, char **argv, char **envp)
 	dup2(pipex.fd[1], STDOUT_FILENO);
 	close(pipex.fd[0]);
 	dup2(pipex.infile, STDIN_FILENO);
+	close(pipex.error_fd[0]);
+	if (pipex.in_exist != 0)
+	{
+		close(pipex.fd[1]);
+		exit(0);
+	}
 	close_pipes(pipex);
 	pipex.args = ft_split(argv[2], ' ');
 	pipex.app = find_app(pipex, pipex.args[0]);
 	if (!pipex.app)
-	{
-		error_msg(pipex.args[0], "command not found", -1);
-		free_child(pipex);
-		exit(127);
-	}
+		err_p1_app(pipex, 1);
+	else
+		err_p1_app(pipex, 0);
 	if (execve(pipex.app, pipex.args, envp) == -1)
 	{
 		free_child(pipex);
@@ -38,14 +42,13 @@ void	child_two_process(t_pipex pipex, char **argv, char **envp)
 	dup2(pipex.fd[0], STDIN_FILENO);
 	close(pipex.fd[1]);
 	close(pipex.fd[0]);
+	close(pipex.error_fd[1]);
 	dup2(pipex.outfile, STDOUT_FILENO);
 	pipex.args = ft_split(argv[3], ' ');
 	pipex.app = find_app(pipex, pipex.args[0]);
 	if (!pipex.app)
 	{
-		error_msg(pipex.args[0], "command not found", -1);
-		free_child(pipex);
-		exit(127);
+		err_p2_app(pipex);
 	}
 	if (execve(pipex.app, pipex.args, envp) == -1)
 	{
@@ -56,6 +59,8 @@ void	child_two_process(t_pipex pipex, char **argv, char **envp)
 
 void	parent_process(t_pipex pipex)
 {
+	close(pipex.error_fd[1]);
+	close(pipex.error_fd[0]);
 	close(pipex.infile);
 	close(pipex.outfile);
 	free_tab(pipex.path);

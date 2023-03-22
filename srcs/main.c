@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:47:24 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/03/22 21:25:31 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/03/22 22:51:51 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,19 @@ t_pipex	init(char **argv, char **envp)
 	if (pipex.infile == -1)
 	{
 		error_msg(argv[1], strerror(errno), -1);
-		pipex.infile = open("/dev/null", O_RDONLY, 0777);
+		pipex.in_exist = -1;
+		pipex.infile = open("/dev/null", O_RDWR, 0777);
 		if (pipex.infile == -1)
 			init_error(NULL, strerror(errno), pipex, 1);
 	}
+	else
+		pipex.in_exist = 0;
 	if (pipe(pipex.fd) == -1)
 		init_error(NULL, strerror(errno), pipex, 2);
+	if (pipe(pipex.error_fd) == -1)
+		init_error(NULL, strerror(errno), pipex, 3);
 	pipex.path = find_path(envp);
 	if (!pipex.path)
-		init_error(NULL, strerror(errno), pipex, 3);
+		init_error(NULL, strerror(errno), pipex, 4);
 	return (pipex);
 }

@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:47:44 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/03/16 11:16:59 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/03/22 23:42:11 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ typedef struct s_pipex
 	pid_t	pid1;
 	pid_t	pid2;
 	int		fd[2];
+	int		error_fd[2];
 	int		infile;
+	int		in_exist;
 	int		outfile;
 	char	**path;
 	char	**args;
@@ -51,6 +53,8 @@ void	child_one_process(t_pipex pipex, char **argv, char **envp);
 void	error_msg(char *name, char *message, int status);
 void	init_error(char *name, char *message, t_pipex pipex, int err);
 int		set_return_value(int status);
+void	err_p1_app(t_pipex pipex, int choice);
+void	err_p2_app(t_pipex pipex);
 /*main.c*/
 t_pipex	init(char **argv, char **envp);
 #endif
