@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 17:17:12 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/03/22 23:41:50 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/03/23 00:02:06 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 void	error_msg(char *name, char *message, int status)
 {
 	ft_putstr_fd("pipex: ", 2);
+	ft_putstr_fd(message, 2);
 	if (name)
 	{
-		ft_putstr_fd(name, 2);
 		ft_putstr_fd(": ", 2);
+		ft_putstr_fd(name, 2);
 	}
-	ft_putstr_fd(message, 2);
 	ft_putchar_fd('\n', 2);
 	if (status != -1)
 		exit(status);

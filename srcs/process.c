@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 16:12:25 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/03/22 23:42:27 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/03/22 23:56:31 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	child_one_process(t_pipex pipex, char **argv, char **envp)
 	close(pipex.error_fd[0]);
 	if (pipex.in_exist != 0)
 	{
+		err_p1_app(pipex, 0);
 		close(pipex.fd[1]);
 		exit(0);
 	}
