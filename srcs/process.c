@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 16:12:25 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/03/22 23:56:31 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/03/23 01:08:49 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ void	child_one_process(t_pipex pipex, char **argv, char **envp)
 	if (pipex.in_exist != 0)
 	{
 		err_p1_app(pipex, 0);
+		close(pipex.infile);
+		close(pipex.outfile);
 		close(pipex.fd[1]);
+		free_tab(pipex.path);
 		exit(0);
 	}
 	close_pipes(pipex);
@@ -33,8 +36,7 @@ void	child_one_process(t_pipex pipex, char **argv, char **envp)
 		err_p1_app(pipex, 0);
 	if (execve(pipex.app, pipex.args, envp) == -1)
 	{
-		free_child(pipex);
-		exit(0);
+		exec_error(pipex);
 	}
 }
 
@@ -53,8 +55,7 @@ void	child_two_process(t_pipex pipex, char **argv, char **envp)
 	}
 	if (execve(pipex.app, pipex.args, envp) == -1)
 	{
-		free_child(pipex);
-		exit(0);
+		exec_error(pipex);
 	}
 }
 

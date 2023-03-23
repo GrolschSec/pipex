@@ -5,6 +5,7 @@ SRC = main.c \
 	utils_2.c \
 	process.c \
 	error.c \
+	error_2.c \
 
 DIR 		= ${addprefix srcs/,${SRC}}
 

@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:47:44 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/03/22 23:42:11 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/03/23 01:08:33 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	init_error(char *name, char *message, t_pipex pipex, int err);
 int		set_return_value(int status);
 void	err_p1_app(t_pipex pipex, int choice);
 void	err_p2_app(t_pipex pipex);
+/*error_2.c*/
+void	exec_error(t_pipex pipex);
 /*main.c*/
 t_pipex	init(char **argv, char **envp);
 #endif
