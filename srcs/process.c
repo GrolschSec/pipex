@@ -6,7 +6,7 @@
 /*   By: rlouvrie <rlouvrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 16:12:25 by rlouvrie          #+#    #+#             */
-/*   Updated: 2023/03/23 01:08:49 by rlouvrie         ###   ########.fr       */
+/*   Updated: 2023/03/23 02:53:35 by rlouvrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	child_two_process(t_pipex pipex, char **argv, char **envp)
 	{
 		err_p2_app(pipex);
 	}
+	close(pipex.error_fd[0]);
 	if (execve(pipex.app, pipex.args, envp) == -1)
 	{
 		exec_error(pipex);
